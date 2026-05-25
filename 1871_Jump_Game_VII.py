@@ -1,0 +1,22 @@
+class Solution(object):
+    def canReach(self, s, minJump, maxJump):
+        n = len(s)
+        if s[-1] != '0':
+            return False
+        
+        queue = [0]
+        farthest = 0
+        
+        for i in queue:
+            start = max(i + minJump, farthest)
+            end = min(i + maxJump + 1, n)
+            
+            for j in range(start, end):
+                if s[j] == '0':
+                    if j == n - 1:
+                        return True
+                    queue.append(j)
+            
+            farthest = end
+        
+        return False
