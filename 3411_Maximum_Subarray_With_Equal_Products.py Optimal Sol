@@ -1,0 +1,27 @@
+class Solution(object):
+    def maxLength(self, nums):
+
+        def gcd(a, b):
+            while b:
+                a, b = b, a % b
+            return a
+
+        n = len(nums)
+        ans = 0
+
+        for i in range(n):
+            prod = 1
+            g = 0
+            lcm = 1
+
+            for j in range(i, n):
+                x = nums[j]
+
+                prod *= x
+                g = gcd(g, x)
+                lcm = (lcm * x) // gcd(lcm, x)
+
+                if prod == g * lcm:
+                    ans = max(ans, j - i + 1)
+
+        return ans
